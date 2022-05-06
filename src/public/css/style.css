@@ -1,0 +1,28 @@
+
+.navbar-brand {
+    font-size: 28px;
+}
+
+.navbar {
+    position:relative;
+}
+
+.info-container {
+    color: white;
+    position: absolute;
+    top: 18px;
+    right: 10px;
+    z-index: 2000;
+}
+
+.fa-bars {
+    font-size: 22px;
+    color: white;
+}
+
+.card img {
+    width: 100%;
+    height: 400px;
+    object-fit:scale-down;
+    object-position: center;
+}

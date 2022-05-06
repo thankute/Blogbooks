@@ -1,0 +1,68 @@
+<h1 style="text-align: center">Trang chủ</h1>
+<div class="row row-cols-1 row-cols-md-2">
+    {{#if blog}}
+        {{#each blog}}
+            <div class="col mb-4">
+                <div class="card">
+                    {{#if this.image}}
+                        <img src="/images/{{image}}" class="card-img-top" alt="...">
+                    {{else}}
+                        
+                    {{/if}}
+                    <div class="card-body">
+                        <h4 class="card-title">{{this.title}}</h4>
+                        <p class="card-text">{{this.body}}</p>
+                        <a href="/user/{{user._id}}">{{user.name}}</a>
+                        <p class="card-text"><small class="text-muted">{{this.status}} {{dateFormat this.createdAt "dddd h:mm a DD/MM/YYYY"}}</small></p>
+                        {{{equal user ../userLogin _id}}}
+                    </div>
+                </div>
+            </div>
+        {{/each}}
+    {{else}} 
+        <p>Oh có vẻ như bạn và bạn bè không có bài viết nào cả.<a href="/me/blog/create"> Tạo ngay ở đây</a></p>
+    {{/if}}
+</div>
+
+
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Xoá bài viết</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Hành động này không thể khôi phục! Bạn có chắc chắn muốn xoá?
+      </div>
+      <div class="modal-footer">
+        <button id="btn-delete" type="button" class="btn btn-danger">Xoá bỏ</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Huỷ</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<form name="deleteForm" method="POST" ></form>
+
+<script>
+
+    document.addEventListener('DOMContentLoaded', function() {
+        var blogID
+        var deleteForm = document.forms['deleteForm']
+        var btnDelete = document.getElementById('btn-delete')
+
+        $('#deleteModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget) // Button that triggered the modal
+            blogID = button.data('id') 
+        })
+
+        btnDelete.onclick = () => {
+            deleteForm.action = '/me/blog/'+ blogID + '?_method=DELETE'
+            deleteForm.submit()
+        }
+
+    })
+</script>
