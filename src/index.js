@@ -43,6 +43,6 @@ routes(app)
 // database
 db.connect()
 
-app.listen(process.env.PORT || 5000, () => {
+app.listen(process.env.PORT || 5000,'0.0.0.0' , () => {
     console.log(`Server listening on port ${PORT}`);
 })
